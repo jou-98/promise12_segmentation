@@ -11,7 +11,7 @@ from collections import defaultdict
 import os, pickle, sys
 import shutil
 from functools import partial
-from itertools import izip
+# from itertools import izip
 
 import cv2
 from keras.optimizers import Adam, SGD
@@ -139,7 +139,7 @@ def augment_validation_data(X_train, y_train, seed=10):
     image_generator = image_datagen.flow(X_train, batch_size=100, seed=seed)
     mask_generator = mask_datagen.flow(y_train, batch_size=100, seed=seed)
 
-    train_generator = izip(image_generator, mask_generator)
+    train_generator = zip(image_generator, mask_generator) # Changed from zip
 
     count=0
     X_val = []
@@ -196,7 +196,7 @@ def keras_fit_generator(img_rows=96, img_cols=96, n_imgs=10**4, batch_size=32, r
     mask_datagen.fit(y_train, seed=seed)
     image_generator = image_datagen.flow(X_train, batch_size=batch_size, seed=seed)
     mask_generator = mask_datagen.flow(y_train, batch_size=batch_size, seed=seed)
-    train_generator = izip(image_generator, mask_generator)
+    train_generator = zip(image_generator, mask_generator) # Changed from zip
 
     model = UNet((img_rows, img_cols,1), start_ch=8, depth=7, batchnorm=True, dropout=0.5, maxpool=True, residual=True)
     # model.load_weights('../data/weights.h5')
