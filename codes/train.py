@@ -46,7 +46,7 @@ def data_to_array(img_rows, img_cols):
 
     fileList =  os.listdir('../data/train/')
     fileList = filter(lambda x: '.mhd' in x, fileList)
-    fileList.sort()
+    fileList = sorted(fileList) # fileList.sort() 
 
     val_list = [5,15,25,35,45]
     train_list = list( set(range(50)) - set(val_list) )
@@ -93,7 +93,7 @@ def data_to_array(img_rows, img_cols):
 
     fileList =  os.listdir('../data/test/')
     fileList = filter(lambda x: '.mhd' in x, fileList)
-    fileList.sort()
+    fileList = sorted(fileList) # fileList.sort() 
     n_imgs=[]
     images=[]
     for filename in fileList:
