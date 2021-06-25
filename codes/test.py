@@ -8,7 +8,8 @@ Created on Fri Oct 27 2017
 from __future__ import division, print_function
 
 import cv2
-from keras.optimizers import Adam
+# Changed keras to tensorflow.keras
+from tensorflow.keras.optimizers import Adam
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')

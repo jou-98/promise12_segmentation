@@ -1,6 +1,6 @@
 from __future__ import division, print_function
-
-from keras import backend as K
+# Changed keras to tensorflow.keras
+from tensorflow.keras import backend as K
 K.set_image_data_format('channels_last')
 import numpy as np
 from scipy.ndimage import morphology

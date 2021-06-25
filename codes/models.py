@@ -1,8 +1,8 @@
-
-from keras.models import Model
-from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose
-from keras.layers import  merge, UpSampling2D, Dropout, Cropping2D, BatchNormalization
-from keras.initializers import RandomNormal, VarianceScaling
+# Changed keras to tensorflow.keras
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose
+from tensorflow.keras.layers import  merge, UpSampling2D, Dropout, Cropping2D, BatchNormalization
+from tensorflow.keras.initializers import RandomNormal, VarianceScaling
 import numpy as np
 
 #Adopted from https://github.com/pietz/unet-keras

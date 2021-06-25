@@ -14,10 +14,11 @@ from functools import partial
 # from itertools import izip
 
 import cv2
-from keras.optimizers import Adam, SGD
-from keras.callbacks import ModelCheckpoint
-from keras.callbacks import LearningRateScheduler, EarlyStopping
-from keras.preprocessing.image import ImageDataGenerator
+# Changed keras to tensorflow.keras
+from tensorflow.keras.optimizers import Adam, SGD
+from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import LearningRateScheduler, EarlyStopping
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 # from scipy.misc import imresize
 from cv2 import resize as imresize
