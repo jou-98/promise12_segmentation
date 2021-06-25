@@ -96,7 +96,7 @@ def predict_test(folder='../data/test/', dest='../data/predictions'):
 
     fileList =  os.listdir(folder)
     fileList = filter(lambda x: '.mhd' in x, fileList)
-    fileList.sort()
+    fileList = sorted(fileList) # Changed from fileList.sort() 
 
     start_ind=0
     end_ind=0
@@ -118,7 +118,7 @@ def plot_test_samples():
 
     fileList = os.listdir('../data/test_samples')
     fileList = filter(lambda x: '.png' in x, fileList)
-    fileList.sort()
+    fileList = sorted(fileList) # Changed from fileList.sort() 
     case_slices = [ [int(s) for s in fname.replace('.', '_').split('_') if s.isdigit()] for fname in fileList]
     case_slices = np.array(case_slices)
     X_test = np.load('../data/X_test.npy')
@@ -236,7 +236,7 @@ def read_cases(the_list=None, folder='../data/train/', masks=True):
     fileList = filter(lambda x: '.mhd' in x, fileList)
     if masks:
         fileList = filter(lambda x: 'segm' in x.lower(), fileList)
-    fileList.sort()
+    fileList = sorted(fileList) # Changed from fileList.sort() 
     if the_list is not None:
         fileList = filter(lambda x: any(str(ff).zfill(2) in x for ff in the_list), fileList)
 
