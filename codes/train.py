@@ -19,7 +19,8 @@ from keras.callbacks import ModelCheckpoint
 from keras.callbacks import LearningRateScheduler, EarlyStopping
 from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
-from scipy.misc import imresize
+# from scipy.misc import imresize
+from cv2 import resize as imresize
 from skimage.transform import resize
 from skimage.exposure import equalize_adapthist, equalize_hist
 
