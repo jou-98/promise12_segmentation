@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#PBS -l select=1:ncpus=8:ngpus=1:mem=46gb
+#PBS -l walltime=24:00:00
+#PBS -o /home/z5211173/UNet_output.txt
+#PBS -M z5211173@unsw.edu.au
+#PBS -m ae
+
+
+source $HOME/.venvs/UNet/bin/activate
+cd $HOME/promise12_segmentation
+
+mkdir /data/
+mkdir /data/train/
+mkdir /data/test/
+
+wget https://www.dropbox.com/s/1d8x8dy0pfauk89/TrainingData_Part1.zip
+wget https://www.dropbox.com/s/g9tnmam7cmk3khx/TrainingData_Part2.zip
+wget https://www.dropbox.com/s/5mzbrk480uu7i5h/TrainingData_Part3.zip
+wget https://www.dropbox.com/s/0w2njjrvcsyyand/TestData.zip
+
+cd $HOME/promise12_segmentation/data/train
+7z x $HOME/promise12_segmentation/TrainingData_Part1.zip
+7z x $HOME/promise12_segmentation/TrainingData_Part2.zip
+7z x $HOME/promise12_segmentation/TrainingData_Part3.zip
+cd $HOME/promise12_segmentation/data/test
+7z x $HOME/promise12_segmentation/TestData.zip
+
+cd $HOME/promise12_segmentation/codes/
+
+python3 train.py
+
+python3 test.py
