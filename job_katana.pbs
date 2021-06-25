@@ -27,13 +27,12 @@ cd $HOME/promise12_segmentation/data/train
 cd $HOME/promise12_segmentation/data/test
 7z x $HOME/promise12_segmentation/TestData.zip
 
+rm $HOME/promise12_segmentation/*.zip 
+
 cd $HOME/promise12_segmentation/codes/
 
 python3 train.py
 
 python3 test.py
 
-rm -rf $HOME/promise12_segmentation/*.zip
-rm -rf $HOME/promise12_segmentation/*.mhd
-rm -rf $HOME/promise12_segmentation/*.raw
 rm -rf $HOME/promise12_segmentation/data/
