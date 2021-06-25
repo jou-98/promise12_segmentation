@@ -2,14 +2,17 @@ from __future__ import division, print_function
 # Changed keras to tensorflow.keras
 from tensorflow.keras import backend as K
 K.set_image_data_format('channels_last')
-import numpy as np
+import tensorflow as tf
 from scipy.ndimage import morphology
 
 def dice_coef(y_true, y_pred, smooth=1.0):
 
     y_true_f = K.flatten(y_true)
     y_pred_f = K.flatten(y_pred)
-    intersection = K.sum(y_true_f.astype(np.float32) * y_pred_f.astype(np.float32)) # Change: Adding typecast to hopefully avoid error
+    # Change: Adding typecast to hopefully avoid error
+    tf.cast(y_true_f,tf.float32)
+    tf.cast(y_pred_f,tf.float32)
+    intersection = K.sum(y_true_f * y_pred_f) 
     return (2. * intersection + smooth) / (
         K.sum(y_true_f) + K.sum(y_pred_f) + smooth)
 
