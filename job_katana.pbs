@@ -10,9 +10,9 @@
 source $HOME/.venvs/UNet/bin/activate
 cd $HOME/promise12_segmentation
 
-mkdir /data/
-mkdir /data/train/
-mkdir /data/test/
+mkdir $HOME/promise12_segmentation/data/
+mkdir $HOME/promise12_segmentation/data/train/
+mkdir $HOME/promise12_segmentation/data/test/
 
 wget https://www.dropbox.com/s/1d8x8dy0pfauk89/TrainingData_Part1.zip
 wget https://www.dropbox.com/s/g9tnmam7cmk3khx/TrainingData_Part2.zip
@@ -23,6 +23,7 @@ cd $HOME/promise12_segmentation/data/train
 7z x $HOME/promise12_segmentation/TrainingData_Part1.zip
 7z x $HOME/promise12_segmentation/TrainingData_Part2.zip
 7z x $HOME/promise12_segmentation/TrainingData_Part3.zip
+
 cd $HOME/promise12_segmentation/data/test
 7z x $HOME/promise12_segmentation/TestData.zip
 
