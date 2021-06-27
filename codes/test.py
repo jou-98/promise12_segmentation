@@ -88,6 +88,7 @@ def predict_test(folder='../data/test/', dest='../data/predictions'):
         os.mkdir(dest)
 
     X_test = np.load('../data/X_test.npy')
+    # y_test = np.load('../data/y_test.npy')
     n_imgs = np.load('../data/test_n_imgs.npy').cumsum()
 
     img_rows = X_test.shape[1]
@@ -162,20 +163,20 @@ def check_predictions(the_list, plot=False ):
     if not os.path.isdir('../images'):
         os.mkdir('../images')
 
-    X_train = np.load('../data/X_train.npy')
-    y_train = np.load('../data/y_train.npy')
+    X_train = np.load('../data/X_test.npy') # Changed from train
+    y_train = np.load('../data/y_test.npy') # Changed from train
 
-    X_val = np.load('../data/X_val.npy')
-    y_val = np.load('../data/y_val.npy')
+    X_val = np.load('../data/X_val.npy') 
+    y_val = np.load('../data/y_val.npy') 
 
     img_rows = X_val.shape[1]
     img_cols = img_rows
 
     model = get_model(img_rows, img_cols)
 
-    if len(the_list)>10:
+    if len(the_list)>=8: # Changed from >10
         y_pred = model.predict( X_train, verbose=1,batch_size=128)
-        print('Results on train set:')
+        print('Results on test set:') # Changed from train
         print('Accuracy:', numpy_dice(y_train, y_pred))
 
     else:
@@ -250,8 +251,8 @@ def read_cases(the_list=None, folder='../data/train/', masks=True):
 
 if __name__=='__main__':
 
-    val_list = [5,15,25,35,45]
-    train_list = list( set(range(50)) - set(val_list ) )
+    val_list = [5,15,25,35]
+    train_list = list( set(range(40))) - set(val_list ) )
     train_list.sort()
     check_predictions( val_list, plot=True)
     check_predictions( train_list, plot=False)

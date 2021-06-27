@@ -49,8 +49,8 @@ def data_to_array(img_rows, img_cols):
     fileList = filter(lambda x: '.mhd' in x, fileList)
     fileList = sorted(fileList) # fileList.sort() 
 
-    val_list = [5,15,25,35,45]
-    train_list = list( set(range(50)) - set(val_list) )
+    val_list = [5,15,25,35]
+    train_list = list( set(range(40)) - set(val_list) )
     count = 0
     for the_list in [train_list,  val_list]:
         images = []
@@ -97,17 +97,24 @@ def data_to_array(img_rows, img_cols):
     fileList = sorted(fileList) # fileList.sort() 
     n_imgs=[]
     images=[]
+    masks=[]
     for filename in fileList:
         itkimage = sitk.ReadImage('../data/test/'+filename)
         imgs = sitk.GetArrayFromImage(itkimage)
         imgs = img_resize(imgs, img_rows, img_cols, equalize=True)
-        images.append(imgs)
-        n_imgs.append( len(imgs) )
+        if 'segm' in filename.lower():
+            masks.append(imgs)
+        else:
+            images.append(imgs)
+            n_imgs.append( len(imgs) )
 
     images = np.concatenate( images , axis=0 ).reshape(-1, img_rows, img_cols, 1)
+    masks = np.concatenate(masks, axis=0).reshape(-1, img_rows, img_cols, 1)
+    masks = masks.astype(int)
     images = smooth_images(images)
     images = (images - mu)/sigma
     np.save('../data/X_test.npy', images)
+    np.save('../data/y_test.npy', masks)
     np.save('../data/test_n_imgs.npy', np.array(n_imgs) )
 
 
