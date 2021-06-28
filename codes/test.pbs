@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#PBS -l select=1:ncpus=8:ngpus=1:mem=46gb
+#PBS -l walltime=4:00:00
+#PBS -o /home/z5211173/UNet_test.txt
+#PBS -M z5211173@unsw.edu.au
+#PBS -m ae
+
+cd $HOME/promise12_segmentation/codes
+
+source $HOME/.venvs/UNet/bin/activate
+
+python3 test.py
