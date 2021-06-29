@@ -101,10 +101,11 @@ def data_to_array(img_rows, img_cols):
     for filename in fileList:
         itkimage = sitk.ReadImage('../data/test/'+filename)
         imgs = sitk.GetArrayFromImage(itkimage)
-        imgs = img_resize(imgs, img_rows, img_cols, equalize=True)
         if 'segm' in filename.lower():
+            imgs= img_resize(imgs, img_rows, img_cols, equalize=False)
             masks.append(imgs)
         else:
+            imgs = img_resize(imgs, img_rows, img_cols, equalize=True)
             images.append(imgs)
             n_imgs.append( len(imgs) )
 

@@ -4,6 +4,7 @@ from tensorflow.keras import backend as K
 K.set_image_data_format('channels_last')
 import tensorflow as tf
 from scipy.ndimage import morphology
+import numpy as np
 
 def dice_coef(y_true, y_pred, smooth=1.0):
 
