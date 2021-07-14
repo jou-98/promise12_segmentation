@@ -173,7 +173,9 @@ def augment_validation_data(X_train, y_train, seed=10):
 def keras_fit_generator(img_rows=96, img_cols=96, n_imgs=10**4, batch_size=32, regenerate=True):
 
     if regenerate:
+        print(f'Converting data into array......')
         data_to_array(img_rows, img_cols)
+        print(f'Finish!')
         #preprocess_data()
 
     X_train, y_train, X_val, y_val = load_data()

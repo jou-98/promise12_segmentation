@@ -250,12 +250,12 @@ def read_cases(the_list=None, folder='../data/train/', masks=True):
 
 if __name__=='__main__':
 
-    val_list = [5,15,25,35]
-    train_list = list( set(range(40)) - set(val_list ) )
-    test_list = list( set(range(40,50))
-    test_list = sorted(test_list)
+    val_list = [7,14,21,28,35,42,49]
+    train_list = list( set(range(50)) - set(val_list ) )
+    #test_list = list( set(range(40,50))
+    #test_list = sorted(test_list)
     train_list.sort()
-    check_predictions( val_list, plot=False)
-    check_predictions( test_list, plot=True)
+    check_predictions( train_list, plot=False)
+    check_predictions( val_list, plot=True)
     predict_test()
     plot_test_samples()
