@@ -21,7 +21,7 @@ from skimage.measure import find_contours
 from models import *
 from metrics import *
 
-def plot_test(X, y_pred, n_best=20, n_worst=20):
+def plot_test(X, y_pred,filename='test_plot'):
     #PLotting the results'
     img_rows = X.shape[1]
     img_cols = img_rows
@@ -37,7 +37,7 @@ def plot_test(X, y_pred, n_best=20, n_worst=20):
     #segm = y[img_list].reshape(-1, img_rows, img_cols).astype('float32')
 
 
-    n_cols= 8 # Changed from 4
+    n_cols= 4 # Changed from 4
     n_rows = int( np.ceil(len(img)/n_cols) )
 
     fig = plt.figure(figsize=[ 4*n_cols, int(4*n_rows)] )
@@ -58,7 +58,7 @@ def plot_test(X, y_pred, n_best=20, n_worst=20):
         ax.set_yticks([])
         ax.set_aspect(1)  # aspect ratio of 1
 
-    fig.savefig('../images/worst_predictions.png', bbox_inches='tight', dpi=300 )
+    fig.savefig('../images/'+filename+'.png', bbox_inches='tight', dpi=300 )
 
 
 def make_plots(X, y, y_pred, n_best=20, n_worst=20):
@@ -134,8 +134,12 @@ def predict_test(folder='../data/test/', dest='../data/predictions'):
     img_cols = img_rows
     model = get_model(img_rows, img_cols)
     y_pred = model.predict(X_test, verbose=1, batch_size=128)
-
-    plot_test(X_test, y_pred)
+    png_size = 20
+    for i in range(int(np.ceil(X_test.shape[0]/png_size))):
+        if (i+1)*png_size >= X_test.shape[0]:
+            plot_test(X_test[i*png_size:],y_pred[i*png_size:])
+        else:
+            plot_test(X_test[i*png_size:(i+1)*png_size], y_pred[i*png_size:(i+1)*png_size])
 
     fileList =  os.listdir(folder)
     fileList = filter(lambda x: '.mhd' in x, fileList)
