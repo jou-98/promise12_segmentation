@@ -126,6 +126,8 @@ def make_plots(X, y, y_pred, n_best=20, n_worst=20):
         ax.set_aspect(1)  # aspect ratio of 1
 
     fig.savefig('../images/worst_predictions.png', bbox_inches='tight', dpi=300 )
+    plt.clf()
+    plt.close(fig)
 
 def predict_test(folder='../data/test/', dest='../data/predictions'):
     if not os.path.isdir(dest):
