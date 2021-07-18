@@ -21,6 +21,46 @@ from skimage.measure import find_contours
 from models import *
 from metrics import *
 
+def plot_test(X, y_pred, n_best=20, n_worst=20):
+    #PLotting the results'
+    img_rows = X.shape[1]
+    img_cols = img_rows
+    axis =  tuple( range(1, X.ndim ) )
+    #scores = numpy_dice(y, y_pred, axis=axis )
+    #sort_ind = np.argsort( scores )[::-1]
+    #indice = np.nonzero( y.sum(axis=axis) )[0]
+
+    img_list = list(range(y_pred.shape[0]))
+
+    segm_pred = y_pred[img_list].reshape(-1,img_rows, img_cols)
+    img = X[img_list].reshape(-1,img_rows, img_cols)
+    #segm = y[img_list].reshape(-1, img_rows, img_cols).astype('float32')
+
+
+    n_cols= 8 # Changed from 4
+    n_rows = int( np.ceil(len(img)/n_cols) )
+
+    fig = plt.figure(figsize=[ 4*n_cols, int(4*n_rows)] )
+    gs = gridspec.GridSpec( n_rows , n_cols )
+
+    for mm in range( len(img) ):
+
+        ax = fig.add_subplot(gs[mm])
+        ax.imshow(img[mm] )
+
+
+        contours = find_contours(segm_pred[mm], 0.01, fully_connected='high')
+        for n, contour in enumerate(contours):
+            ax.plot(contour[:, 1], contour[:, 0], linewidth=1, color='b')
+
+        ax.axis('image')
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_aspect(1)  # aspect ratio of 1
+
+    fig.savefig('../images/worst_predictions.png', bbox_inches='tight', dpi=300 )
+
+
 def make_plots(X, y, y_pred, n_best=20, n_worst=20):
     #PLotting the results'
     img_rows = X.shape[1]
