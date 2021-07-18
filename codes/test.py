@@ -137,9 +137,9 @@ def predict_test(folder='../data/test/', dest='../data/predictions'):
     png_size = 20
     for i in range(int(np.ceil(X_test.shape[0]/png_size))):
         if (i+1)*png_size >= X_test.shape[0]:
-            plot_test(X_test[i*png_size:],y_pred[i*png_size:])
+            plot_test(X_test[i*png_size:],y_pred[i*png_size:], filename='test_'+str(i))
         else:
-            plot_test(X_test[i*png_size:(i+1)*png_size], y_pred[i*png_size:(i+1)*png_size])
+            plot_test(X_test[i*png_size:(i+1)*png_size], y_pred[i*png_size:(i+1)*png_size], filename='test_'+str(i))
 
     fileList =  os.listdir(folder)
     fileList = filter(lambda x: '.mhd' in x, fileList)
