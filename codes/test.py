@@ -5,6 +5,11 @@ Created on Fri Oct 27 2017
 @author: Inom Mirzaev
 """
 
+lengths =   [20,20,20,20,19,20,20,38,52,34,39,46,
+            34,35,23,23,23,23,25,23,23,23,24,24,
+            24,24,24,24,24,24]
+
+
 from __future__ import division, print_function
 import cv2
 # Changed keras to tensorflow.keras
@@ -134,12 +139,13 @@ def predict_test(folder='../data/test/', dest='../data/predictions'):
     img_cols = img_rows
     model = get_model(img_rows, img_cols)
     y_pred = model.predict(X_test, verbose=1, batch_size=128)
-    png_size = 20
-    for i in range(int(np.ceil(X_test.shape[0]/png_size))):
-        if (i+1)*png_size >= X_test.shape[0]:
-            plot_test(X_test[i*png_size:],y_pred[i*png_size:], filename='test_'+str(i))
-        else:
-            plot_test(X_test[i*png_size:(i+1)*png_size], y_pred[i*png_size:(i+1)*png_size], filename='test_'+str(i))
+
+    curr = 0
+    num = 0
+    for i in lengths:
+        plot_test(X_test[curr:curr+i],y_pred[curr:curr+i],filename=str.zfill(str(num),2))
+        curr += i
+        num += 1
 
     fileList =  os.listdir(folder)
     fileList = filter(lambda x: '.mhd' in x, fileList)
