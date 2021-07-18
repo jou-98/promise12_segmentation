@@ -6,6 +6,9 @@ Created on Fri Oct 27 2017
 """
 
 from __future__ import division, print_function
+
+from train import data_to_array
+
 import cv2
 # Changed keras to tensorflow.keras
 from tensorflow.keras.optimizers import Adam
@@ -248,7 +251,9 @@ def read_cases(the_list=None, folder='../data/train/', masks=True):
 
 
 if __name__=='__main__':
-
+    print(f'Converting data into array......')
+    data_to_array(256, 256)
+    print(f'Finish!')
     val_list = [7,14,21,28,35,42,49]
     train_list = list( set(range(50)) - set(val_list ) )
     #test_list = list( set(range(40,50))
