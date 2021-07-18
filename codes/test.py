@@ -135,6 +135,8 @@ def predict_test(folder='../data/test/', dest='../data/predictions'):
     model = get_model(img_rows, img_cols)
     y_pred = model.predict(X_test, verbose=1, batch_size=128)
 
+    plot_test(X_test, y_pred)
+
     fileList =  os.listdir(folder)
     fileList = filter(lambda x: '.mhd' in x, fileList)
     fileList = sorted(fileList) # Changed from fileList.sort() 
