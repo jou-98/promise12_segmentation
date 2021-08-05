@@ -5,6 +5,11 @@ Created on Fri Oct 27 2017
 @author: Inom Mirzaev
 """
 
+lengths =   [20,20,20,20,19,20,20,38,52,34,39,46,
+            34,35,23,23,23,23,25,23,23,23,24,24,
+            24,24,24,24,24,24]
+
+
 from __future__ import division, print_function
 import cv2
 # Changed keras to tensorflow.keras
@@ -20,10 +25,6 @@ from skimage.measure import find_contours
 
 from models import *
 from metrics import *
-
-lengths =   [20,20,20,20,19,20,20,38,52,34,39,46,
-            34,35,23,23,23,23,25,23,23,23,24,24,
-            24,24,24,24,24,24]
 
 def plot_test(X, y_pred,filename='test_plot'):
     #PLotting the results'
@@ -218,8 +219,8 @@ def check_predictions(the_list, plot=False ):
     X_train = np.load('../data/X_train.npy') # Changed from train
     y_train = np.load('../data/y_train.npy') # Changed from train
 
-    X_val = np.load('../data/X_test.npy') 
-    y_val = np.load('../data/y_test.npy') 
+    X_val = np.load('../data/X_val.npy') 
+    y_val = np.load('../data/y_val.npy') 
 
     img_rows = X_val.shape[1]
     img_cols = img_rows
@@ -227,12 +228,12 @@ def check_predictions(the_list, plot=False ):
     model = get_model(img_rows, img_cols)
     if len(the_list)>10: # Changed from >= 8
         y_pred = model.predict( X_train, verbose=1,batch_size=128)
-        print('Results on train set:') # Changed from train
+        print('Results on test set:') # Changed from train
         print('Accuracy:', numpy_dice(y_train, y_pred))
 
     else:
         y_pred = model.predict( X_val, verbose=1,batch_size=128)
-        print('Results on test set')
+        print('Results on validation set')
         print('Accuracy:', numpy_dice(y_val, y_pred))
 
     vol_scores = []
@@ -307,7 +308,7 @@ if __name__=='__main__':
     #test_list = list( set(range(40,50))
     #test_list = sorted(test_list)
     train_list.sort()
-    #check_predictions( train_list, plot=False)
+    check_predictions( train_list, plot=False)
     check_predictions( val_list, plot=True)
-    #predict_test()
+    predict_test()
     #plot_test_samples()

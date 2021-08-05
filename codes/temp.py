@@ -91,7 +91,7 @@ def data_to_array(img_rows, img_cols):
             np.save('../data/y_val.npy', masks)
         count+=1
 
-    fileList =  os.listdir('../Dataset/')
+    fileList =  os.listdir('../data/test/')
     fileList = filter(lambda x: '.bin' in x, fileList)
     fileList = sorted(fileList) # fileList.sort() 
     n_imgs=[]
@@ -99,7 +99,7 @@ def data_to_array(img_rows, img_cols):
     masks=[]
     for filename in fileList:
         idx = filename[:-8] if 'seg' in filename.lower() else filename[:-4]
-        imgs = np.fromfile('../Dataset/'+filename,dtype=np.float32).reshape(img_shapes[idx])
+        imgs = np.fromfile('../data/test/'+filename,dtype=np.float32).reshape(img_shapes[idx])
         #print(imgs.shape)
         #imgs = sitk.GetArrayFromImage(itkimage)
         if 'seg' in filename.lower():
@@ -117,7 +117,7 @@ def data_to_array(img_rows, img_cols):
     sigma = np.std(images)
     images = smooth_images(images)
     images = (images - mu)/sigma
-    np.save('../data/test_x.npy', images)
+    np.save('../data/X_test.npy', images)
     np.save('../data/y_test.npy', masks)
     np.save('../data/test_n_imgs.npy', np.array(n_imgs) )
 
